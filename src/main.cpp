@@ -255,11 +255,16 @@ struct Args {
 static void Usage(const char* exe) {
   std::cerr
     << "Usage:"
+    << std::endl
     << "  " << exe << " --thumbnail <image> --src <folder> [--output-folder <folder>] [--clock-id <n>] [--idle] [--in] [--no-lz4]"
-    << ""
+    << std::endl
+    << std::endl
     << "Notes:"
+    << std::endl
     << "  - Output filename is always: Clock{id}_res"
-    << "  - The base id must be 50000..65535 (inclusive)";
+    << std::endl
+    << "  - The base id must be 50000..65535 (inclusive)"
+    << std::endl;
 }
 
 static bool ParseU32(const std::string& s, uint32_t& out) {
@@ -276,7 +281,7 @@ static std::optional<Args> ParseArgs(int argc, char** argv) {
   for (int i=1;i<argc;i++) {
     std::string k = argv[i];
     auto need = [&](const char* flag)->std::optional<std::string>{
-      if (i+1>=argc) { std::cerr<<"Missing value for "<<flag<<"\n"; return std::nullopt; }
+      if (i+1>=argc) { std::cerr<<"Missing value for "<<flag<<std::endl; return std::nullopt; }
       return std::string(argv[++i]);
     };
 
@@ -292,7 +297,7 @@ static std::optional<Args> ParseArgs(int argc, char** argv) {
     } else if (k=="--clock-id") {
       auto v=need("--clock-id"); if(!v) return std::nullopt;
       uint32_t id=0;
-      if(!ParseU32(*v,id)) { std::cerr<<"Invalid --clock-id\n"; return std::nullopt; }
+      if(!ParseU32(*v,id)) { std::cerr<<"Invalid --clock-id"<<std::endl; return std::nullopt; }
       a.clock_id=id;
     } else if (k=="--idle") {
       a.idle=true;
@@ -301,7 +306,7 @@ static std::optional<Args> ParseArgs(int argc, char** argv) {
     } else if (k=="--no-lz4") {
       a.lz4=false;
     } else {
-      std::cerr<<"Unknown arg: "<<k<<"\n";
+      std::cerr<<"Unknown arg: "<<k<<std::endl;
       return std::nullopt;
     }
   }
@@ -404,7 +409,7 @@ int main(int argc, char** argv) {
   Args args = *args_opt;
 
   if (!fs::exists(args.src) || !fs::is_directory(args.src)) {
-    std::cerr << "Error: --src is not a directory\n";
+    std::cerr << "Error: --src is not a directory" << std::endl;
     return 2;
   }
 
@@ -662,12 +667,12 @@ int main(int argc, char** argv) {
     fs::path out_path = out_dir / ("Clock" + std::to_string(ids.base) + "_res");
     if (!WriteAllBytes(out_path, out)) throw std::runtime_error("Failed to write output: " + out_path.string());
 
-    std::cout << "Wrote: " << out_path << "";
-    std::cout << "clock_size=" << clock_size << " base_id=" << ids.base << " clock_id=0x" << std::hex << clock_id << std::dec << "";
-    std::cout << "thumb=" << thumb_len << " img=" << img_len << " z=" << z_len << " layer=" << layer_data.size() << "\n";
+    std::cout << "Wrote: " << out_path << std::endl;
+    std::cout << "clock_size=" << clock_size << " base_id=" << ids.base << " clock_id=0x" << std::hex << clock_id << std::dec << std::endl;
+    std::cout << "thumb=" << thumb_len << " img=" << img_len << " z=" << z_len << " layer=" << layer_data.size() << std::endl;
     return 0;
   } catch (const std::exception& e) {
-    std::cerr << "Error: " << e.what() << "\n";
+    std::cerr << "Error: " << e.what() << std::endl;
     return 3;
   }
 }

@@ -127,7 +127,7 @@ jobs:
             exit 1
           fi
 
-          ZIPNAME="DTNo1ResPacker-${VERSION}-${{ matrix.name }}.zip"
+          ZIPNAME="DTNo1ResPacker-v${VERSION}-${{ matrix.name }}.zip"
           (cd "$STAGE" && zip -9 "../$OUTDIR/$ZIPNAME" ./*)
 
           echo "Created $OUTDIR/$ZIPNAME"
@@ -164,7 +164,7 @@ jobs:
 
           Copy-Item $Bin -Destination (Join-Path $Stage 'DTNo1ResPacker.exe')
 
-          $Zip = "DTNo1ResPacker-$Version-${{ matrix.name }}.zip"
+          $Zip = "DTNo1ResPacker-v$Version-${{ matrix.name }}.zip"
           $ZipPath = Join-Path 'dist' $Zip
           if (Test-Path $ZipPath) { Remove-Item -Force $ZipPath }
 

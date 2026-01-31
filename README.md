@@ -9,11 +9,13 @@
 
 It is intended as the “inverse” of the unpacker workflow: `config.json + images → .res`.
 
+Download pre-built binaries from the [releases page](https://github.com/mondul/DTNo1ResPacker/releases/latest). Available for Windows x64 and macOS x64/ARM64 (**NOTE**: In macOS you might need to run `xattr -d com.apple.quarantine DTNo1ResPacker` after extracting the downloaded zip).
+
 ---
 
 ## What it builds
 
-The output `.res` file contains:
+The output `_res` file contains:
 
 1. A fixed-size header with:
    - `magic`
