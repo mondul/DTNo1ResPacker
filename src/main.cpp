@@ -254,18 +254,12 @@ struct Args {
 
 static void Usage(const char* exe) {
   std::cerr
-    << "Usage:
-"
-    << "  " << exe << " --thumbnail <image> --src <folder> [--output-folder <folder>] [--clock-id <n>] [--idle] [--in] [--no-lz4]
-"
-    << "
-"
-    << "Notes:
-"
-    << "  - Output filename is always: Clock{id}_res
-"
-    << "  - The base id must be 50000..65535 (inclusive)
-";
+    << "Usage:"
+    << "  " << exe << " --thumbnail <image> --src <folder> [--output-folder <folder>] [--clock-id <n>] [--idle] [--in] [--no-lz4]"
+    << ""
+    << "Notes:"
+    << "  - Output filename is always: Clock{id}_res"
+    << "  - The base id must be 50000..65535 (inclusive)";
 }
 
 static bool ParseU32(const std::string& s, uint32_t& out) {
@@ -292,8 +286,8 @@ static std::optional<Args> ParseArgs(int argc, char** argv) {
     } else if (k=="--src") {
       auto v=need("--src"); if(!v) return std::nullopt;
       a.src=*v;
-    } else if (k==\"--output-folder\") {
-      auto v=need(\"--output-folder\"); if(!v) return std::nullopt;
+    } else if (k=="--output-folder") {
+      auto v=need("--output-folder"); if(!v) return std::nullopt;
       a.output_folder=fs::path(*v);
     } else if (k=="--clock-id") {
       auto v=need("--clock-id"); if(!v) return std::nullopt;
@@ -668,10 +662,8 @@ int main(int argc, char** argv) {
     fs::path out_path = out_dir / ("Clock" + std::to_string(ids.base) + "_res");
     if (!WriteAllBytes(out_path, out)) throw std::runtime_error("Failed to write output: " + out_path.string());
 
-    std::cout << "Wrote: " << out_path << "
-";
-    std::cout << "clock_size=" << clock_size << " base_id=" << ids.base << " clock_id=0x" << std::hex << clock_id << std::dec << "
-";
+    std::cout << "Wrote: " << out_path << "";
+    std::cout << "clock_size=" << clock_size << " base_id=" << ids.base << " clock_id=0x" << std::hex << clock_id << std::dec << "";
     std::cout << "thumb=" << thumb_len << " img=" << img_len << " z=" << z_len << " layer=" << layer_data.size() << "\n";
     return 0;
   } catch (const std::exception& e) {
