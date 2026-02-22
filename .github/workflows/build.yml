@@ -1,0 +1,45 @@
+name: Build all
+
+on:
+  push:
+    paths:
+      - '.github/workflows/build.yml'
+      - '**.cpp'
+      - '**.rs'
+      - '**.css'
+      - '**.js'
+      - '**.html'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - uses: jetli/wasm-pack-action@v0.4.0
+    - name: Rust Build
+      working-directory: rust_quantize
+      run: |
+        cargo build
+        wasm-pack build --release --target web --out-dir ../src/lib
+    - uses: mymindstorm/setup-emsdk@v14
+    - name: C++ Build
+      working-directory: cpp_lz4compress
+      run: make release
+    - name: Javascript Build
+      run: |
+        npm ci
+        npm run build
+    - name: Deploy
+      if: github.ref == 'refs/heads/main'
+      uses: cloudflare/wrangler-action@v3
+      with:
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        command: pages deploy dist --project-name=dtno1 --commit-dirty=true
