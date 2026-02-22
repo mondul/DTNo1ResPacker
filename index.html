@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clock _res generator</title>
+</head>
+<body>
+  <div id="app">
+    <h2>DTNO.1 watch face generator</h2>
+    <h4>For ATS3085-S based smart watches</h4>
+
+    <form id="upload-form" autocomplete="off">
+      <div>
+        <label for="config-folder">Select watch face source folder:</label>
+        <input type="file" name="config-folder" id="config-folder" webkitdirectory multiple required>
+      </div>
+      <div><small><b>NOTE:</b> No files will be uploaded to any server, everything is done in the browser!</small></div>
+
+      <div>&nbsp;</div>
+
+      <div>
+        <label for="clock-id">Watch face ID:</label>
+        <input type="number" name="clock-id" id="clock-id" autocomplete="off" required>
+      </div>
+
+      <div>&nbsp;</div>
+
+      <div>
+        <label for="clock-size">Watch face size:</label>
+        <select name="clock-size" id="clock-size" autocomplete="off">
+          <option value="" selected>Auto-detect</option>
+          <option value="983040">454&times;454</option>
+          <option value="917504">400&times;400</option>
+          <option value="851968">466&times;466</option>
+          <option value="786432">390&times;390</option>
+          <option value="720896">410&times;502</option>
+          <option value="655360">320&times;384</option>
+          <option value="655360">320&times;385</option>
+          <option value="589824">368&times;448</option>
+          <option value="524288">390&times;450</option>
+          <option value="458752">360&times;360</option>
+        </select>
+      </div>
+
+      <div>&nbsp;</div>
+
+      <div class="center">
+        <div class="dd">
+          <button type="button">Advanced <span class="chevron"></span></button>
+          <div class="menu">
+            <div>
+              <input type="checkbox" name="compress" id="compress" autocomplete="off" checked>
+              <label for="compress">Use LZ4 compression</label>
+            </div>
+
+            <div>
+              <input type="checkbox" name="idle" id="idle" autocomplete="off">
+              <label for="idle">Mark as <i>idle</i></label>
+            </div>
+
+            <div>
+              <input type="checkbox" name="internal" id="internal" autocomplete="off">
+              <label for="internal">Mark as <i>internal</i></label>
+            </div>
+          </div>
+        </div>
+        <span class="emsp"></span>
+        <button type="reset">Reset</button>
+        <span class="emsp"></span>
+        <button type="submit" id="process">Process</button>
+      </div>
+    </form>
+
+    <div id="messages"></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
