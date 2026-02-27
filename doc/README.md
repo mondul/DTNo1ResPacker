@@ -60,6 +60,7 @@ Required file:
 | 10 | Fixed point rotation, Second hand |
 | 12 | Draw 1-4 picture, A set of pictures of the center rotation, a set of pictures of start angle - start angle+90, width==high |
 | 13 | Center rotation, start position one picture, width==high |
+| 15 | Full screen image rotation |
 | | |
 | 20 | Draw a picture, from a set of pictures |
 | 21 | Detained point rotation, hour or minute |
@@ -68,6 +69,8 @@ Required file:
 | 32 | progress |
 | | |
 | 40 | Level direction list |
+| | |
+| 55 | Shortut to screen |
 | | |
 | 61 | xx Pure number vertical |
 | 65 | x.xx xx.x xxx Digital + decimal point vertical |
@@ -495,11 +498,37 @@ Required file:
 },
 ```
 
-### 11. `[drawType == 20]` Draw a picture, from a set of pictures
+### 11. `[drawType == 15]` Full screen image rotation
+
+&emsp;&emsp;`[dataType == 11, 12, 13]` hours, minutes or seconds hand  
+&emsp;&emsp;`[num == 1]`  
+&emsp;&emsp;`[x, y == 0]`  
+&emsp;&emsp;`[imgArr]  [1, 2, 3]` 1,2 indicate the rotation point coordinate, 3 indicate the picture name  
+&emsp;&emsp;`[alignType == 0, 1, 2]` ignored
+
+```
+{
+    "drawType": 15,
+    "dataType": 12,
+    "alignType": 1,
+    "x": 0,
+    "y": 0,
+    "num": 1,
+    "imgArr": [
+        [
+            233,
+            233,
+            "hand_minutes.png"
+        ]
+    ]
+}
+```
+
+### 12. `[drawType == 20]` Draw a picture, from a set of pictures
 
 &emsp;&emsp;`[alignType == 0, 1, 2]`
 
-#### &emsp;&emsp;11.1 `[dataType == 21, 23, 30, 40, 41, 42, 50]`
+#### &emsp;&emsp;12.1 `[dataType == 21, 23, 30, 40, 41, 42, 50]`
 
 ```
 {
@@ -521,7 +550,7 @@ Required file:
 },
 ```
 
-#### &emsp;&emsp;11.2 `[dataType == 15]`
+#### &emsp;&emsp;12.2 `[dataType == 15]`
 
 &emsp;&emsp;&emsp;&emsp;`[num == 3]` 1 indicates 24 hours, 2 indicates AM, 3 means PM  
 &emsp;&emsp;&emsp;&emsp;`[imgArr]`: 1 == 2 indicates that the picture is not displayed in 24 hours
@@ -543,7 +572,7 @@ Required file:
 },
 ```
 
-#### &emsp;&emsp;11.3 `[dataType == 52]`
+#### &emsp;&emsp;12.3 `[dataType == 52]`
 
 &emsp;&emsp;&emsp;&emsp;`[interval >= 250]` The 'interval' property must be set
 
@@ -585,7 +614,7 @@ Required file:
 },
 ```
 
-### 12. `[drawType == 21]` Detained point rotation, hour or minute
+### 13. `[drawType == 21]` Detained point rotation, hour or minute
 
 &emsp;&emsp;`[dataType == 10, 11, 12]`  
 &emsp;&emsp;`[num == 15, 18]` 15 pictures (dataType == 10, 18)  
@@ -651,7 +680,7 @@ Required file:
 },
 ```
 
-### 13. `[drawType == 22]` Draw a picture, a set of pictures of start angle - start angle+90, width==high
+### 14. `[drawType == 22]` Draw a picture, a set of pictures of start angle - start angle+90, width==high
 
 &emsp;&emsp;`[dataType == 41, 42, 50]`  
 &emsp;&emsp;`[alignType]`: value = (Angle from start to end)/90°×"num"
@@ -677,7 +706,7 @@ Required file:
 },
 ```
 
-### 14. [drawType == 32] progress rate
+### 15. [drawType == 32] progress rate
 
 &emsp;&emsp;`[dataType == 40, 41, 42, 43, 50]`  
 &emsp;&emsp;`[alignType == 0, 1, 2, 3]`:  
@@ -752,11 +781,11 @@ Required file:
 },
 ```
 
-### 15. `[drawType == 40]` Horizontal direction list
+### 16. `[drawType == 40]` Horizontal direction list
 
 &emsp;&emsp;`[alignType == 0, 1, 2]`
 
-#### &emsp;&emsp;15.1 `[dataType == 23]`
+#### &emsp;&emsp;16.1 `[dataType == 23]`
 
 &emsp;&emsp;`[num == 10]`:  
 &emsp;&emsp;`[imgArr]`:  
@@ -789,7 +818,7 @@ Required file:
 },
 ```
 
-#### &emsp;&emsp;15.2 `[dataType == 30]`
+#### &emsp;&emsp;16.2 `[dataType == 30]`
 
 &emsp;&emsp;`[num == 9]`:  
 &emsp;&emsp;`[imgArr]`:  
@@ -820,7 +849,7 @@ Required file:
 },
 ```
 
-#### &emsp;&emsp;15.3 `[dataType == 31, 32, 35]`
+#### &emsp;&emsp;16.3 `[dataType == 31, 32, 35]`
 
 &emsp;&emsp;`[num == 15]`:  
 &emsp;&emsp;`[imgArr]`:  
@@ -860,7 +889,7 @@ Required file:
 },
 ```
 
-### 16. `[drawType == 55]` Shortut to screen
+### 17. `[drawType == 55]` Shortut to screen
 
 &emsp;&emsp;`[dataType == 0]`  
 &emsp;&emsp;`[alignType == 0, 1]`  
@@ -902,7 +931,7 @@ Required file:
 },
 ```
 
-### 17. `[drawType == 61]` xx Pure digital vertical
+### 18. `[drawType == 61]` xx Pure digital vertical
 
 &emsp;&emsp;`[dataType == 11, 12, 13, 20, 21, 22, 27, 40, 41, 42, 43, 44, 45, 50]`  
 &emsp;&emsp;`[num == 10, 11]` 1-10 indicates numbers 0-9, 11 indicates no data (can be omitted)  
@@ -932,7 +961,7 @@ Required file:
 },
 ```
 
-### 18. `[drawType == 65]` x.xx xx.x xxx Digital + decimal point vertical
+### 19. `[drawType == 65]` x.xx xx.x xxx Digital + decimal point vertical
 
 &emsp;&emsp;`[dataType == 42, 43]`  
 &emsp;&emsp;`[num == 11]` 1-10 indicates the number 0-9, 11 indicates the decimal point  
