@@ -255,6 +255,7 @@ document.getElementById('upload-form').onsubmit = async event => {
       if (Array.isArray(item)) {
         await add_resdata(item[item.length - 1]) // Last item should be the file name
       }
+      else if (Number.isInteger(item)) return // Ignore numbers in drawType 32 & 40
       else if (!files[item]) throw `File not in folder - ${item}`
       else if (!img_offsets[item]) { // Check if it was not processed before
         const bytes = await file2resdata(files[item], compress_check.checked)
